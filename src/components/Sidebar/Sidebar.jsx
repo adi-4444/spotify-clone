@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./sidebar.css";
 import useSongs from "../hooks/useSongs";
 import SongsLoading from "../Loading/SongsLoading";
@@ -6,8 +6,10 @@ import SongsLoading from "../Loading/SongsLoading";
 const Sidebar = ({
 	selectedPlaylist,
 	playlistId,
-	selectedSong,
 	songHandler,
+	selectedSongIdx,
+	setSelectedSongIdx,
+	setSongsLength,
 }) => {
 	const [search, setSearch] = useState(null);
 	const { loading, data, error } = useSongs(playlistId, search);
@@ -29,6 +31,10 @@ const Sidebar = ({
 		const text = e.target.value.trim() || null;
 		setSearch(text);
 	}, 550);
+	useEffect(() => {
+		songHandler(data?.getSongs[selectedSongIdx]);
+		setSongsLength(data?.getSongs.length);
+	}, [selectedSongIdx, selectedPlaylist]);
 
 	return (
 		<div className='sidebar'>
@@ -56,15 +62,16 @@ const Sidebar = ({
 				</div>
 				{loading && <SongsLoading />}
 				<div className='songs-list'>
-					{data?.getSongs.map((song) => (
+					{data?.getSongs.map((song, idx, arr) => (
 						<div
 							className={`song-item ${
-								song._id === selectedSong?._id
+								song._id ===
+								data?.getSongs[selectedSongIdx]?._id
 									? "selected-song"
 									: ""
 							}`}
 							key={song._id}
-							onClick={() => songHandler(song)}
+							onClick={() => setSelectedSongIdx(idx)}
 						>
 							<div className='first'>
 								<img

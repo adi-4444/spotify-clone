@@ -10,7 +10,9 @@ function App() {
 		title: "For You",
 	});
 	const [playlistId, setPlaylistId] = useState(1);
+	const [selectedSongIdx, setSelectedSongIdx] = useState(-1);
 	const [selectedSong, setSelectedSong] = useState({});
+	const [songsLength, setSongsLength] = useState([]);
 	const playlistHandler = (item) => {
 		setPlaylistId(item.id);
 		setSelectedPlaylist(item);
@@ -18,6 +20,7 @@ function App() {
 	const songHandler = (song) => {
 		setSelectedSong(song);
 	};
+
 	return (
 		<div className='App'>
 			<Navigation
@@ -30,8 +33,16 @@ function App() {
 				selectedSong={selectedSong}
 				setSelectedSong={setSelectedSong}
 				songHandler={songHandler}
+				selectedSongIdx={selectedSongIdx}
+				setSelectedSongIdx={setSelectedSongIdx}
+				setSongsLength={setSongsLength}
 			/>
-			<Player selectedSong={selectedSong} />
+			<Player
+				selectedSong={selectedSong}
+				selectedSongIdx={selectedSongIdx}
+				songsLength={songsLength}
+				setSelectedSongIdx={setSelectedSongIdx}
+			/>
 		</div>
 	);
 }
