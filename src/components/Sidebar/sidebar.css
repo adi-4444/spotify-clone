@@ -1,0 +1,105 @@
+.sidebar {
+	flex: 1.5;
+	position: relative;
+	border: 1px solid #fff;
+}
+.sidebar-wrapper {
+	padding: 40px 25px 0px 25px;
+}
+.playlist-title {
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 36px;
+}
+.search-div {
+	margin-top: 1.5rem;
+	margin-bottom: 2rem;
+	height: 48px;
+	border-radius: 8px;
+	background: rgba(255, 255, 255, 0.08);
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.search {
+	border: none;
+	box-shadow: none;
+	outline: none;
+	font-weight: 400;
+	font-size: 18px;
+	height: 90%;
+	width: 80%;
+	margin-left: 15px;
+	color: #fff;
+	caret-color: #1db954;
+	background: none;
+}
+.search-img {
+	margin-right: 15px;
+	background: none;
+}
+.songs-list {
+	height: 71.5vh;
+	overflow: auto;
+}
+.song-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	width: 100%;
+	transition: all 0.3s ease-in;
+}
+.selected-song {
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 8px;
+}
+.first {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	background: none;
+	width: 80%;
+}
+.song-details {
+	background: none;
+	width: 100%;
+}
+.song-title {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 24px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 14rem;
+	background: none;
+}
+
+.song-artist {
+	font-size: 14px;
+	opacity: 0.6;
+	line-height: 24px;
+	width: 100%;
+	word-wrap: break-word;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 14rem;
+	background: none;
+}
+.song-img {
+	width: 48px;
+	height: 48px;
+	border-radius: 56px;
+	background: none;
+}
+.song-duration {
+	font-size: 18px;
+	line-height: 24px;
+	text-align: right;
+	opacity: 0.6;
+	background: none;
+}
