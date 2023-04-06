@@ -1,24 +1,45 @@
 import React, { useState } from "react";
 import "./sidebar.css";
 import useSongs from "../hooks/useSongs";
+import SongsLoading from "../Loading/SongsLoading";
 
-const Sidebar = () => {
-	const [selectedSongId, setSelectedSongId] = useState(null);
-	const { loading, data, error } = useSongs(1, null);
-	console.log(loading, data, error);
-	const songIdHandler = (song) => {
-		setSelectedSongId(song._id);
-		console.log(song);
+const Sidebar = ({
+	selectedPlaylist,
+	playlistId,
+	selectedSong,
+	songHandler,
+}) => {
+	const [search, setSearch] = useState(null);
+	const { loading, data, error } = useSongs(playlistId, search);
+
+	const convertMsToHM = (num) => {
+		let arr = num.toString().split("");
+		arr.splice(1, 0, ":");
+		return arr.join("");
 	};
+	const debounce = (func, delay) => {
+		let timeout;
+		return function (...args) {
+			const context = this;
+			clearTimeout(timeout);
+			timeout = setTimeout(() => func.apply(context, args), delay);
+		};
+	};
+	const searchHandler = debounce((e) => {
+		const text = e.target.value.trim() || null;
+		setSearch(text);
+	}, 550);
+
 	return (
 		<div className='sidebar'>
 			<div className='sidebar-wrapper'>
-				<p className='playlist-title'>For You</p>
+				<p className='playlist-title'>{selectedPlaylist.title}</p>
 				<div className='search-div'>
 					<input
 						type='search'
 						className='search'
 						placeholder='Search Song, Artist'
+						onChange={searchHandler}
 					/>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
@@ -33,16 +54,17 @@ const Sidebar = () => {
 						/>
 					</svg>
 				</div>
+				{loading && <SongsLoading />}
 				<div className='songs-list'>
 					{data?.getSongs.map((song) => (
 						<div
 							className={`song-item ${
-								song._id === selectedSongId
+								song._id === selectedSong?._id
 									? "selected-song"
 									: ""
 							}`}
 							key={song._id}
-							onClick={() => songIdHandler(song)}
+							onClick={() => songHandler(song)}
 						>
 							<div className='first'>
 								<img
@@ -55,7 +77,9 @@ const Sidebar = () => {
 									<p className='song-artist'>{song.artist}</p>
 								</div>
 							</div>
-							<p className='song-duration'>{song.duration}</p>
+							<p className='song-duration'>
+								{convertMsToHM(song.duration)}
+							</p>
 						</div>
 					))}
 				</div>

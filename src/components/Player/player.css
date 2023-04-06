@@ -1,4 +1,50 @@
 .player {
 	flex: 2;
-	background-color: #e6a9a9;
+}
+.player-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 2rem 0 0 6rem;
+	gap: 35px;
+}
+.player-title {
+	font-weight: 700;
+	font-size: 32px;
+	line-height: 36px;
+}
+.player-artist {
+	font-size: 16px;
+	opacity: 0.6;
+	line-height: 24px;
+}
+.player-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+.player-img {
+	width: 30rem;
+	height: 30rem;
+	border-radius: 8px;
+}
+.seeker {
+	width: 29rem;
+	background-color: transparent;
+	color: white;
+	opacity: 0.2;
+}
+.player-controlls {
+	width: 29rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.controls-center {
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }

@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./navigation.css";
 import usePlaylists from "../hooks/usePlaylists";
 import NavLoading from "../Loading/NavLoading";
 
-const Navigation = () => {
-	const [selectedId, setSelectedId] = useState(1);
+const Navigation = ({ playlistId, playlistHandler }) => {
 	const { loading, data, error } = usePlaylists();
-	console.log(loading, data, error);
 	const playlistIdHandler = (item) => {
-		setSelectedId(item.id);
-		console.log(item);
+		playlistHandler(item);
 	};
 	return (
 		<div className='navigation'>
@@ -34,7 +31,7 @@ const Navigation = () => {
 						key={list.id}
 						onClick={() => playlistIdHandler(list)}
 						style={{
-							opacity: list.id === selectedId ? 1 : 0.7,
+							opacity: list.id === playlistId ? 1 : 0.7,
 						}}
 					>
 						{list.title}
