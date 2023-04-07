@@ -12,6 +12,10 @@
 	font-weight: 700;
 	font-size: 32px;
 	line-height: 36px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 25rem;
 }
 .player-artist {
 	font-size: 16px;

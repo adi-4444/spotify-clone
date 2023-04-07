@@ -9,7 +9,8 @@ const Sidebar = ({
 	songHandler,
 	selectedSongIdx,
 	setSelectedSongIdx,
-	setSongsLength,
+	setSongs,
+	songSelectedPlaylistId,
 }) => {
 	const [search, setSearch] = useState(null);
 	const { loading, data, error } = useSongs(playlistId, search);
@@ -31,10 +32,11 @@ const Sidebar = ({
 		const text = e.target.value.trim() || null;
 		setSearch(text);
 	}, 550);
+
 	useEffect(() => {
 		songHandler(data?.getSongs[selectedSongIdx]);
-		setSongsLength(data?.getSongs.length);
-	}, [selectedSongIdx, selectedPlaylist]);
+		setSongs(data?.getSongs);
+	}, [selectedSongIdx]);
 
 	return (
 		<div className='sidebar'>
@@ -65,8 +67,9 @@ const Sidebar = ({
 					{data?.getSongs.map((song, idx, arr) => (
 						<div
 							className={`song-item ${
+								songSelectedPlaylistId === playlistId &&
 								song._id ===
-								data?.getSongs[selectedSongIdx]?._id
+									data?.getSongs[selectedSongIdx]?._id
 									? "selected-song"
 									: ""
 							}`}
