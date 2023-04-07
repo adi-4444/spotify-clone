@@ -15,7 +15,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 25rem;
+	max-width: 20rem;
 }
 .player-artist {
 	font-size: 16px;
@@ -34,12 +34,7 @@
 	height: 30rem;
 	border-radius: 8px;
 }
-.seeker {
-	width: 29rem;
-	background-color: transparent;
-	color: white;
-	opacity: 0.2;
-}
+
 .player-controlls {
 	width: 29rem;
 	display: flex;

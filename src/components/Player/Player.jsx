@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./player.css";
+import Seeker from "./Seeker";
 
 const Player = ({
 	selectedSong,
@@ -10,33 +11,6 @@ const Player = ({
 	playPauseHandler,
 	audio,
 }) => {
-	const [currentTime, setCurrentTime] = useState(0);
-	const [duration, setDuration] = useState(0);
-
-	useEffect(() => {
-		if (audio) {
-			audio?.addEventListener("loadedmetadata", () => {
-				setDuration(Math.floor(audio?.duration));
-			});
-
-			audio?.addEventListener("timeupdate", () => {
-				setCurrentTime(Math.floor(audio?.currentTime));
-			});
-		}
-
-		return () => {
-			if (audio) {
-				audio?.removeEventListener("loadedmetadata", () => {
-					setDuration(Math.floor(audio.duration));
-				});
-
-				audio?.removeEventListener("timeupdate", () => {
-					setCurrentTime(Math.floor(audio.currentTime));
-				});
-			}
-		};
-	}, [audio]);
-
 	const prevSongHandler = () => {
 		if (selectedSongIdx > 0) {
 			setSelectedSongIdx(selectedSongIdx - 1);
@@ -47,13 +21,7 @@ const Player = ({
 			setSelectedSongIdx(selectedSongIdx + 1);
 		}
 	};
-	const seekerHandler = (e) => {
-		if (audio) {
-			audio.currentTime = e.target.value;
-		}
-	};
 
-	console.log(audio?.currentTime, audio?.duration);
 	return (
 		<div className='player'>
 			<div className='player-wrapper'>
@@ -63,14 +31,7 @@ const Player = ({
 				</div>
 				<div className='player-center'>
 					<img src={selectedSong?.photo} className='player-img' />
-					<input
-						className='seeker'
-						type='range'
-						id='seek-slider'
-						max={duration}
-						value={currentTime}
-						onChange={seekerHandler}
-					/>
+					<Seeker audio={audio} isPlaying={isPlaying} />
 				</div>
 				<div className='player-controlls'>
 					<svg
