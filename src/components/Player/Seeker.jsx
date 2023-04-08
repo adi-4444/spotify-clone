@@ -70,6 +70,34 @@ export default function Seeker({ audio, isPlaying }) {
 		function handleMouseUp() {
 			isDraggingRef.current = false;
 		}
+
+		function handleTouchStart(event) {
+			event.preventDefault();
+			isDraggingRef.current = true;
+			const canvas = canvasRef.current;
+			const rect = canvas.getBoundingClientRect();
+			const x = event.touches[0].clientX - rect.left;
+			const progress = x / canvas.width;
+			if (audio) {
+				audio.currentTime = progress * audio.duration;
+			}
+		}
+
+		function handleTouchMove(event) {
+			event.preventDefault();
+			if (isDraggingRef.current) {
+				const { pageX } = event.touches[0];
+				const rect = canvasRef.current.getBoundingClientRect();
+				const offsetX = pageX - rect.left;
+				const progress = offsetX / width;
+				audio.currentTime = audio.duration * progress;
+				draw();
+			}
+		}
+
+		function handleTouchEnd() {
+			isDraggingRef.current = false;
+		}
 		if (isPlaying) {
 			animate();
 		} else {
@@ -80,12 +108,18 @@ export default function Seeker({ audio, isPlaying }) {
 		canvas.addEventListener("mousedown", handleMouseDown);
 		canvas.addEventListener("mousemove", handleMouseMove);
 		canvas.addEventListener("mouseup", handleMouseUp);
+		canvas.addEventListener("touchstart", handleTouchStart);
+		canvas.addEventListener("touchmove", handleTouchMove);
+		canvas.addEventListener("touchend", handleTouchEnd);
 
 		return () => {
 			cancelAnimationFrame(animationFrameId);
 			canvas.removeEventListener("mousedown", handleMouseDown);
 			canvas.removeEventListener("mousemove", handleMouseMove);
 			canvas.removeEventListener("mouseup", handleMouseUp);
+			canvas.addEventListener("touchstart", handleTouchStart);
+			canvas.addEventListener("touchmove", handleTouchMove);
+			canvas.addEventListener("touchend", handleTouchEnd);
 		};
 	}, [audio, isPlaying]);
 

@@ -42,11 +42,37 @@
 }
 
 @media screen and (max-width: 1092px) {
-	.navigation {
-		display: none;
-	}
+	.logo,
+	.playlist-title,
 	.profile img {
 		display: none;
+	}
+	.navigation {
+		display: block;
+		position: absolute;
+		z-index: 12;
+		width: 90%;
+		left: 0px;
+		transition: all 0.3s ease-in-out;
+	}
+	.nav-active {
+		left: 0px;
+	}
+	.nav-links {
+		position: absolute;
+		height: 60px;
+		line-height: 1.5em;
+		width: 100%;
+		font-size: 25px;
+		font-weight: 700;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		overflow: auto;
+		margin-left: 0.8rem;
+		gap: 1.2em;
+		top: 5px;
+		border-bottom: 1.5px solid gray;
 	}
 }
 @media screen and (max-width: 768px) {
@@ -57,7 +83,6 @@
 	.navigation {
 		display: block;
 		position: absolute;
-		/* width: 100%; */
 		z-index: 12;
 		width: 90%;
 		left: -800px;
