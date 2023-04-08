@@ -5,12 +5,12 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	padding: 2rem 0 0 6rem;
+	padding: 2rem 0 0 4rem;
 	gap: 35px;
 }
 .player-title {
 	font-weight: 700;
-	font-size: 32px;
+	font-size: 2em;
 	line-height: 36px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -18,7 +18,7 @@
 	max-width: 20rem;
 }
 .player-artist {
-	font-size: 16px;
+	font-size: 1.2em;
 	opacity: 0.6;
 	line-height: 24px;
 }
@@ -46,7 +46,101 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	z-index: 1;
 }
 .pointer {
 	cursor: pointer;
+}
+.player-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.player-info p {
+	text-align: center;
+	padding-top: 3rem;
+	font-size: 2em;
+}
+
+.songs-menubar {
+	display: none;
+	position: absolute;
+	right: 0.5rem;
+	top: 0.5rem;
+	z-index: 15;
+}
+
+@media screen and (max-width: 1092px) {
+	.player-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.song-info {
+		text-align: left;
+		width: 65%;
+	}
+	.player-img {
+		width: 20rem;
+		height: 20rem;
+		border-radius: 8px;
+	}
+	.controls-center {
+		width: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.player-controlls {
+		width: 20rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.seeker-canvas {
+		width: 20rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.song-info {
+		text-align: center;
+	}
+	.player-title {
+		max-width: 100%;
+	}
+	.player-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem 1rem;
+		gap: 3rem;
+	}
+	.player-controlls {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.player-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding-top: 2rem;
+		gap: 2.5rem;
+	}
+	.player-center {
+		gap: 2rem;
+	}
+	.player-info p {
+		text-align: center;
+		padding-left: 0rem;
+		padding-top: 1rem;
+		font-size: 1.5em;
+	}
+	.songs-menubar {
+		display: block;
+	}
 }

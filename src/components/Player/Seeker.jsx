@@ -95,6 +95,7 @@ export default function Seeker({ audio, isPlaying }) {
 			width={480}
 			height={16}
 			style={{ borderRadius: "50px", cursor: "pointer" }}
+			className='seeker-canvas'
 		/>
 	);
 }

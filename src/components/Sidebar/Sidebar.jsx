@@ -11,6 +11,7 @@ const Sidebar = ({
 	setSelectedSongIdx,
 	setSongs,
 	songSelectedPlaylistId,
+	isOpen,
 }) => {
 	const [search, setSearch] = useState(null);
 	const { loading, data, error } = useSongs(playlistId, search);
@@ -39,7 +40,7 @@ const Sidebar = ({
 	}, [selectedSongIdx]);
 
 	return (
-		<div className='sidebar'>
+		<div id='sidebar' className={`sidebar ${isOpen ? "active" : ""} `}>
 			<div className='sidebar-wrapper'>
 				<p className='playlist-title'>{selectedPlaylist.title}</p>
 				<div className='search-div'>
@@ -64,34 +65,40 @@ const Sidebar = ({
 				</div>
 				{loading && <SongsLoading />}
 				<div className='songs-list'>
-					{data?.getSongs.map((song, idx, arr) => (
-						<div
-							className={`song-item ${
-								songSelectedPlaylistId === playlistId &&
-								song._id ===
-									data?.getSongs[selectedSongIdx]?._id
-									? "selected-song"
-									: ""
-							}`}
-							key={song._id}
-							onClick={() => setSelectedSongIdx(idx)}
-						>
-							<div className='first'>
-								<img
-									src={song.photo}
-									className='song-img'
-									alt='avatar'
-								/>
-								<div className='song-details'>
-									<p className='song-title'>{song.title}</p>
-									<p className='song-artist'>{song.artist}</p>
+					{data?.getSongs.map((song, idx, arr) => {
+						return (
+							<div
+								className={`song-item ${
+									songSelectedPlaylistId === playlistId &&
+									song._id ===
+										data?.getSongs[selectedSongIdx]?._id
+										? "selected-song"
+										: ""
+								}`}
+								key={song._id}
+								onClick={() => setSelectedSongIdx(idx)}
+							>
+								<div className='first'>
+									<img
+										src={song.photo}
+										className='song-img'
+										alt='avatar'
+									/>
+									<div className='song-details'>
+										<p className='song-title'>
+											{song.title}
+										</p>
+										<p className='song-artist'>
+											{song.artist}
+										</p>
+									</div>
 								</div>
+								<p className='song-duration'>
+									{convertMsToHM(song.duration)}
+								</p>
 							</div>
-							<p className='song-duration'>
-								{convertMsToHM(song.duration)}
-							</p>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</div>

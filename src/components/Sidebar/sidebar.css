@@ -103,3 +103,29 @@
 	opacity: 0.6;
 	background: none;
 }
+
+@media screen and (max-width: 768px) {
+	.sidebar-wrapper {
+		padding: 3rem 0px 0px 0px;
+	}
+	.sidebar {
+		width: 100%;
+		display: block;
+		position: absolute;
+		z-index: 10;
+		left: -800px;
+		height: 100dvh;
+		transition: all 0.3s ease-in-out;
+	}
+	.active {
+		left: 0;
+	}
+	.songs-list {
+		height: 71.5vh;
+		overflow: auto;
+		padding: 10px 25px 25px 25px;
+	}
+	.playlist-title {
+		display: none;
+	}
+}

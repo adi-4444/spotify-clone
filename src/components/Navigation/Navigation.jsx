@@ -3,13 +3,14 @@ import "./navigation.css";
 import usePlaylists from "../hooks/usePlaylists";
 import NavLoading from "../Loading/NavLoading";
 
-const Navigation = ({ playlistId, playlistHandler }) => {
+const Navigation = ({ playlistId, playlistHandler, isOpen }) => {
 	const { loading, data, error } = usePlaylists();
 	const playlistIdHandler = (item) => {
 		playlistHandler(item);
 	};
+
 	return (
-		<div className='navigation'>
+		<div className={`navigation ${isOpen ? "nav-active" : ""}`}>
 			<div className='logo'>
 				<svg
 					width='133'

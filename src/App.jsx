@@ -17,9 +17,18 @@ function App() {
 	const [songSelectedPlaylistId, setSongSelectedPlaylistId] =
 		useState(playlistId);
 	const [audio, setAudio] = useState(null);
+	const [isOpen, setIsOpen] = useState(false);
+	const [size, setSize] = useState([window.innerWidth]);
 
 	useEffect(() => {
 		setIsPlaying(false);
+		const handleResize = () => {
+			setSize([window.innerWidth]);
+		};
+		window.addEventListener("resize", handleResize);
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -46,6 +55,7 @@ function App() {
 
 	useEffect(() => {
 		// it will check song is selected or not
+		let sidebar = document.getElementById("sidebar");
 		if (selectedSong?.photo) {
 			// creating a new Image object
 			const image = new Image();
@@ -86,14 +96,31 @@ function App() {
 				document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 				// set the background gradient color based on the average color of the image
 				document.body.style.background = `linear-gradient(108.18deg, rgba(${r}, ${g}, ${b}, 0.6) 2.46%, rgba(0, 0, 0, 0.6) 99.84%), #000000`;
+				if (size <= 768) {
+					sidebar.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+					sidebar.style.background = `linear-gradient(108.18deg, rgba(${r}, ${g}, ${b}, 1) 2.46%, rgba(0, 0, 0, 1) 99.84%), #000000`;
+				} else {
+					// if the screen size is greater than 768px
+					sidebar.style.backgroundColor = "";
+					sidebar.style.background = "";
+				}
 			};
 		} else {
 			// if no song has been selected, reset the background colors to the default values
 			document.body.style.backgroundColor = "#F5F5F5";
 			document.body.style.background =
 				"linear-gradient(108.18deg, rgba(51, 66, 94, 0.6) 2.46%, rgba(0, 0, 0, 0.6) 99.84%), #000000";
+			if (size <= 768) {
+				sidebar.style.backgroundColor = "#F5F5F5";
+				sidebar.style.background =
+					"linear-gradient(108.18deg, rgba(51, 66, 94, 1) 2.46%, rgba(0, 0, 0, 1) 99.84%), #000000";
+			} else {
+				// if the screen size is greater than 768px
+				sidebar.style.backgroundColor = "";
+				sidebar.style.background = "";
+			}
 		}
-	}, [selectedSong]);
+	}, [selectedSong, size]);
 
 	const playlistHandler = (item) => {
 		setPlaylistId(item?.id);
@@ -101,6 +128,7 @@ function App() {
 	};
 
 	const songHandler = (song) => {
+		setIsOpen(false);
 		if (songSelectedPlaylistId !== playlistId) {
 			setSongSelectedPlaylistId(playlistId);
 		}
@@ -134,6 +162,7 @@ function App() {
 			<Navigation
 				playlistId={playlistId}
 				playlistHandler={playlistHandler}
+				isOpen={isOpen}
 			/>
 			<Sidebar
 				selectedPlaylist={selectedPlaylist}
@@ -145,6 +174,7 @@ function App() {
 				setSelectedSongIdx={setSelectedSongIdx}
 				setSongs={setSongs}
 				songSelectedPlaylistId={songSelectedPlaylistId}
+				isOpen={isOpen}
 			/>
 			<Player
 				selectedSong={selectedSong}
@@ -154,6 +184,8 @@ function App() {
 				isPlaying={isPlaying}
 				playPauseHandler={playPauseHandler}
 				audio={audio}
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
 			/>
 		</div>
 	);

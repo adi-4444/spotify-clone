@@ -2,6 +2,7 @@
 	flex: 0.8;
 	font-style: normal;
 	position: relative;
+	transition: all 0.3s ease-in-out;
 }
 .logo {
 	position: absolute;
@@ -38,4 +39,47 @@
 	height: 48px;
 	left: 32px;
 	bottom: 32px;
+}
+
+@media screen and (max-width: 1092px) {
+	.navigation {
+		display: none;
+	}
+	.profile img {
+		display: none;
+	}
+}
+@media screen and (max-width: 768px) {
+	.logo,
+	.profile img {
+		display: none;
+	}
+	.navigation {
+		display: block;
+		position: absolute;
+		/* width: 100%; */
+		z-index: 12;
+		width: 90%;
+		left: -800px;
+		transition: all 0.3s ease-in-out;
+	}
+	.nav-active {
+		left: 0px;
+	}
+	.nav-links {
+		position: absolute;
+		height: 60px;
+		line-height: 1.5em;
+		width: 80%;
+		font-size: 15px;
+		font-weight: 700;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		overflow: auto;
+		margin-left: 0.8rem;
+		gap: 1.2em;
+		top: 5px;
+		border-bottom: 1.5px solid gray;
+	}
 }
